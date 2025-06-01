@@ -37,6 +37,14 @@ APP_VERSION = os.environ.get("APP_BUILD_VERSION", "0.1.0")
 APP_DESCRIPTION = "An application for detecting edges in flower images using various algorithms."
 
 
+def get_architecture():
+    """Determine the system architecture for RPM packaging."""
+    # For simplicity and consistency with current fpm command in create_rpm_package
+    # which hardcodes x86_64. A more robust check could be platform.machine().
+    # Common values: x86_64, aarch64, etc.
+    return "x86_64"
+
+
 def check_dependencies():
     """Check if required packages are installed"""
     # Check for PyInstaller
