@@ -130,4 +130,4 @@ The goal of these scripts (once updated) would be to create:
 - **Linux**: `.deb` and `.rpm` packages (or AppImage).
 - **macOS**: A `.app` bundle and `.dmg` installer.
 
-Refer to [docs/DISTRIBUTION.md](docs/DISTRIBUTION.md) (which also needs updating for PyQt6 packaging).
+Refer to [docs/DISTRIBUTION.md](docs/DISTRIBUTION.md).
