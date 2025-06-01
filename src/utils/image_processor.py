@@ -1,7 +1,8 @@
 import os
 import cv2
 import numpy as np
-from PIL import Image, ImageTk
+from PIL import Image  # Removed ImageTk
+from PyQt6.QtGui import QImage, QPixmap  # Added QImage and QPixmap imports
 
 
 class ImageProcessor:
@@ -73,31 +74,38 @@ class ImageProcessor:
 
         return resized
 
-    def convert_to_tkimage(self, image):
-        """Convert an OpenCV image to a format usable by Tkinter
+    def convert_to_qpixmap(self, image):
+        """Convert an OpenCV image to a QPixmap for display in PyQt.
 
         Parameters:
         - image: OpenCV image (numpy array)
 
         Returns:
-        - ImageTk.PhotoImage object or None if failed
+        - QPixmap object or None if failed
         """
         if image is None:
             return None
 
         try:
-            # Convert color from BGR to RGB
-            image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+            # OpenCV images are typically BGR. Convert to RGB.
+            if len(image.shape) == 3 and image.shape[2] == 3:  # Color image
+                rgb_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+                h, w, ch = rgb_image.shape
+                bytes_per_line = ch * w
+                qt_image = QImage(rgb_image.data, w, h,
+                                  bytes_per_line, QImage.Format.Format_RGB888)
+            elif len(image.shape) == 2:  # Grayscale image
+                h, w = image.shape
+                bytes_per_line = w
+                qt_image = QImage(image.data, w, h, bytes_per_line,
+                                  QImage.Format.Format_Grayscale8)
+            else:
+                print("Unsupported image format for QPixmap conversion.")
+                return None
 
-            # Convert to PIL Image
-            pil_image = Image.fromarray(image_rgb)
-
-            # Convert to PhotoImage
-            tk_image = ImageTk.PhotoImage(pil_image)
-
-            return tk_image
+            return QPixmap.fromImage(qt_image)
         except Exception as e:
-            print(f"Error converting image: {e}")
+            print(f"Error converting image to QPixmap: {e}")
             return None
 
     def save_image(self, image, save_path):
