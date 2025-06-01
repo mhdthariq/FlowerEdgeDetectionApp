@@ -32,3 +32,6 @@ Thumbs.db
 
 # Generated result files
 results/
+
+# Asset folders to ignore
+assets/images/
