@@ -12,6 +12,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Get version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -29,14 +33,27 @@ jobs:
           sudo apt-get install -y ruby ruby-dev build-essential
           sudo gem install fpm
 
+      - name: Install X11/Qt dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libxkbcommon-x11-0 \
+            libxcb-icccm4 \
+            libxcb-image0 \
+            libxcb-keysyms1 \
+            libxcb-render-util0 \
+            libxcb-xinerama0 \
+            libxcb-xkb1 \
+            libxcb-shape0 \
+            libxcb-randr0 \
+            libxcb-cursor0 \
+            libfontconfig1 \
+            libgl1
+
       - name: Build Linux packages
         env:
           APP_BUILD_VERSION: ${{ env.VERSION }}
         run: python build_scripts/build_linux_packages.py
-
-      - name: Get version from tag
-        id: get_version
-        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
 
       - name: Create Release
         id: create_release
