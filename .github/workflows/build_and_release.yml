@@ -32,6 +32,10 @@ jobs:
       - name: Build Linux packages
         run: python build_scripts/build_linux_packages.py
 
+      - name: Get version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -49,7 +53,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/flower-edge-detection_${{ env.APP_VERSION }}_amd64.deb # Assuming APP_VERSION is accessible or hardcode/derive it
+          asset_path: ./dist/flower-edge-detection_${{ env.VERSION }}_amd64.deb
           asset_name: flower-edge-detection_${{ github.ref_name }}_amd64.deb
           asset_content_type: application/vnd.debian.binary-package
 
@@ -59,7 +63,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/flower-edge-detection-${{ env.APP_VERSION }}-1.x86_64.rpm # Assuming APP_VERSION is accessible or hardcode/derive it
+          asset_path: ./dist/flower-edge-detection-${{ env.VERSION }}-1.x86_64.rpm
           asset_name: flower-edge-detection-${{ github.ref_name }}-1.x86_64.rpm
           asset_content_type: application/x-rpm
 
