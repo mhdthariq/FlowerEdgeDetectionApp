@@ -4,7 +4,7 @@ A Python-based GUI application with a modern interface that allows users to load
 
 ## Features
 
-- Modern, attractive UI built with Tkinter and ttkbootstrap
+- Modern, attractive UI built with Python and **PyQt6**
 - Support for multiple edge detection methods:
   - Sobel
   - Prewitt
@@ -14,7 +14,7 @@ A Python-based GUI application with a modern interface that allows users to load
 - Edge pixel count and density metrics
 - Ability to save processed images with method names
 - Uniform image sizing for better comparison
-- Distributable packages for Windows, Linux, and macOS
+- Distributable packages for Windows, Linux, and macOS (requires build script updates for PyQt6)
 - Modular architecture for better code organization and extensibility
 
 ## Project Structure
@@ -25,11 +25,8 @@ The application follows a modular architecture:
 ├── main.py                 # Main entry point
 ├── src/                    # Source code directory
 │   ├── app/                # Application logic
-│   │   ├── edge_detection_app.py  # Main application class
-│   │   └── main.py         # Application initialization
-│   ├── interface/          # User interface components
-│   │   ├── splash_screen.py  # Splash screen implementation
-│   │   └── themes.py       # Theme management
+│   │   ├── edge_detection_app.py  # Main application class (QMainWindow)
+│   │   └── main.py         # Application initialization and splash screen
 │   └── utils/              # Utility functions and classes
 │       ├── check_dependencies.py  # Dependency checker
 │       ├── edge_detection.py  # Edge detection algorithms
@@ -42,17 +39,20 @@ The application follows a modular architecture:
 ## Requirements
 
 - Python 3.7+
-- OpenCV (cv2)
+- OpenCV (`opencv-python`)
 - NumPy
-- PIL (Pillow)
-- Tkinter
-- ttkbootstrap
+- Pillow
+- PyQt6
 
 ## Installation
 
 ### Method 1: From Source
 
-1. Clone this repository
+1. Clone this repository:
+   ```bash
+   git clone <repository-url>
+   cd flower-edge-detection-app # Or your project directory name
+   ```
 2. Create a virtual environment (optional but recommended):
    ```bash
    python -m venv .venv
@@ -64,21 +64,20 @@ The application follows a modular architecture:
    ```bash
    pip install -r requirements.txt
    ```
-   Note: Tkinter comes with most Python installations.
 5. Run the application:
    ```bash
    python main.py
    ```
 
-### Method 2: Using Build Scripts
+### Method 2: Using Build Scripts (Needs Update for PyQt6)
 
-The repository includes build scripts to create installable packages:
+The repository includes build scripts. **Note: These scripts were originally designed for a Tkinter application and will need to be updated to correctly package a PyQt6 application (e.g., using PyInstaller with PyQt6 specifics, or tools like `fbs`).**
 
-- **Windows**: Use `build_windows_exe.py` to create an `.exe` installer
-- **Linux**: Use `build_linux_packages.py` to create `.deb` and `.rpm` packages
-- **macOS**: Use `build_macos_app.py` to create a `.app` bundle and `.dmg` installer
+- **Windows**: `build_scripts/build_windows_exe.py`
+- **Linux**: `build_scripts/build_linux_packages.py`
+- **macOS**: `build_scripts/build_macos_app.py`
 
-See [DISTRIBUTION.md](docs/DISTRIBUTION.md) for detailed build instructions.
+See [docs/DISTRIBUTION.md](docs/DISTRIBUTION.md) for general build concepts (will also need updating for PyQt6).
 
 ## Usage
 
@@ -86,49 +85,49 @@ See [DISTRIBUTION.md](docs/DISTRIBUTION.md) for detailed build instructions.
    ```bash
    python main.py
    ```
-2. Click "Upload Image" to select a flower image
-3. Apply edge detection using individual buttons or "Apply All Methods"
-4. Toggle edge pixel count display using the checkbox
-5. Click "Save Results" to save processed images as "MethodName_ImageName.png"
-6. Compare the results side by side
+2. Click "Upload Image" to select a flower image.
+3. Apply edge detection using individual method buttons or "Apply All Methods".
+4. Toggle the "Show Edge Pixel Count/Density" checkbox to view metrics.
+5. Click "Save Results" to save processed images (e.g., `Sobel_ImageName.png`).
+6. Compare the results side by side in the UI.
 
 ## Image Processing Methods
 
-- **Sobel**: Calculates the gradient of the image intensity at each pixel
-- **Prewitt**: Similar to Sobel but uses a different kernel, often less sensitive to noise
-- **Canny**: Multi-stage algorithm that detects edges with noise suppression
-- **Laplacian**: Highlights regions of rapid intensity change using the Laplacian operator
+- **Sobel**: Calculates the gradient of the image intensity at each pixel.
+- **Prewitt**: Similar to Sobel but uses a different kernel, often less sensitive to noise.
+- **Canny**: Multi-stage algorithm that detects edges with noise suppression.
+- **Laplacian**: Highlights regions of rapid intensity change using the Laplacian operator.
 
 ## Example
 
 After loading an image, you'll see a display with:
 
-- Original image (top left)
-- Sobel edge detection (top center)
-- Prewitt edge detection (top right)
-- Canny edge detection (bottom left)
-- Laplacian edge detection (bottom center)
+- Original image
+- Sobel edge detection result
+- Prewitt edge detection result
+- Canny edge detection result
+- Laplacian edge detection result
 
-Each processed image displays the number of edge pixels detected and the edge density percentage.
+Each processed image display can show the number of edge pixels detected and the edge density percentage.
 
-## Building Distributable Packages
+## Building Distributable Packages (Needs Update for PyQt6)
 
-The project includes scripts to create installable packages for distribution. These are located in the `build_scripts` directory:
+The project includes scripts to create installable packages. **These scripts need to be adapted for PyQt6 applications.**
 
 ```bash
-# Main build script that detects your platform and runs the appropriate script
+# Main build script (needs update)
 python build_scripts/build_app.py
 
-# Platform-specific build scripts
+# Platform-specific build scripts (need update)
 python build_scripts/build_windows_exe.py    # For Windows
 python build_scripts/build_linux_packages.py  # For Linux
 python build_scripts/build_macos_app.py      # For macOS
 ```
 
-The build scripts will create:
+The goal of these scripts (once updated) would be to create:
 
-- **Windows**: An `.exe` installer
-- **Linux**: `.deb` and `.rpm` packages
-- **macOS**: A `.app` bundle and `.dmg` installer
+- **Windows**: An `.exe` installer.
+- **Linux**: `.deb` and `.rpm` packages (or AppImage).
+- **macOS**: A `.app` bundle and `.dmg` installer.
 
-See [DISTRIBUTION.md](docs/DISTRIBUTION.md) for detailed build instructions.
+Refer to [docs/DISTRIBUTION.md](docs/DISTRIBUTION.md) (which also needs updating for PyQt6 packaging).

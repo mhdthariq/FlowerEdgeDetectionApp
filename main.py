@@ -25,11 +25,11 @@ def main():
     """Main entry point for the application"""
     try:
         # Import the main app module
-        from src.app.main import run_app_with_splash
+        from src.app.main import run_pyqt_app_with_splash
 
         # Run the application
         logger.info("Starting Edge Detection Application")
-        run_app_with_splash()
+        run_pyqt_app_with_splash()
     except ImportError as e:
         logger.error(f"Failed to import required modules: {e}")
         print(f"Error: Failed to import required modules: {e}")
