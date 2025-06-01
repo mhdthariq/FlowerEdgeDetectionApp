@@ -32,7 +32,8 @@ ICON_PATH = next((p for p in ICON_CANDIDATES if p.exists()),
 APP_NAME = "FlowerEdgeDetection"
 # Name of the executable created by PyInstaller
 APP_EXECUTABLE_NAME = "FlowerEdgeDetection"
-APP_VERSION = "0.1.0"
+# Get version from environment variable or use a default
+APP_VERSION = os.environ.get("APP_BUILD_VERSION", "0.1.0")
 APP_DESCRIPTION = "An application for detecting edges in flower images using various algorithms."
 
 
@@ -162,7 +163,7 @@ Keywords=image;processing;edge;detection;flower;pyqt;
 def create_deb_package():
     """Create a .deb package using fpm"""
     app_name = "flower-edge-detection"
-    version = "1.0.0"  # Consider making this dynamic
+    version = APP_VERSION  # Use the dynamic APP_VERSION
 
     # Ensure dist directory exists
     DIST_DIR.mkdir(exist_ok=True)
@@ -247,7 +248,8 @@ def create_deb_package():
 def create_rpm_package():
     """Create a .rpm package using fpm"""
     app_name = "flower-edge-detection"
-    version = "1.0.0"  # Consider making this dynamic
+    version = APP_VERSION  # Use the dynamic APP_VERSION
+    arch = get_architecture()
 
     DIST_DIR.mkdir(exist_ok=True)
     executable_path = DIST_DIR / app_name

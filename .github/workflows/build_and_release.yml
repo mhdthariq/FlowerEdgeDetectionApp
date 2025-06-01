@@ -30,6 +30,8 @@ jobs:
           sudo gem install fpm
 
       - name: Build Linux packages
+        env:
+          APP_BUILD_VERSION: ${{ env.VERSION }}
         run: python build_scripts/build_linux_packages.py
 
       - name: Get version from tag
