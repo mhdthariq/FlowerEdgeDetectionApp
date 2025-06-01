@@ -6,6 +6,7 @@ from PyQt6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, QH
 from PyQt6.QtGui import QPixmap, QImage, QAction, QIcon
 from PyQt6.QtCore import Qt, QSize
 import platform
+import sys  # Import sys for MEIPASS
 
 # Import from modular structure
 # Unused Tkinter imports removed
@@ -18,6 +19,9 @@ class EdgeDetectionApp(QMainWindow):
         super().__init__()
         self.setWindowTitle("Flower Edge Detection App")
         self.setGeometry(100, 100, 1280, 900)  # x, y, width, height
+
+        # Set application icon
+        self.set_app_icon()
 
         # Platform-specific adjustments (can be adapted if needed)
         self.platform = platform.system().lower()
@@ -101,6 +105,24 @@ class EdgeDetectionApp(QMainWindow):
             }
         """)
 
+    def set_app_icon(self):
+        try:
+            if hasattr(sys, '_MEIPASS'):
+                # PyInstaller creates a temp folder and stores path in _MEIPASS
+                icon_path = os.path.join(
+                    sys._MEIPASS, "assets", "icons", "app_icon.png")
+            else:
+                # Development path
+                icon_path = os.path.abspath(os.path.join(os.path.dirname(
+                    __file__), "..", "..", "assets", "icons", "app_icon.png"))
+
+            if os.path.exists(icon_path):
+                self.setWindowIcon(QIcon(icon_path))
+            else:
+                print(f"Warning: App icon not found at {icon_path}")
+        except Exception as e:
+            print(f"Error setting app icon: {e}")
+
     def apply_platform_adjustments(self):
         """Apply platform-specific UI adjustments"""
         # PyQt handles many platform specifics automatically.
@@ -124,36 +146,42 @@ class EdgeDetectionApp(QMainWindow):
         self.main_layout.addWidget(top_widget)
 
         # Button to upload image
-        self.upload_btn = QPushButton("Upload Image")
+        self.upload_btn = QPushButton(
+            QIcon.fromTheme("document-open"), " Upload Image")
         self.upload_btn.clicked.connect(self.upload_image)
         self.top_frame_layout.addWidget(self.upload_btn)
 
         # Process buttons
-        self.process_btn_sobel = QPushButton("Apply Sobel")
+        self.process_btn_sobel = QPushButton(
+            QIcon.fromTheme("image-filter"), " Apply Sobel")
         self.process_btn_sobel.clicked.connect(
             lambda: self.process_image("Sobel"))
         self.process_btn_sobel.setEnabled(False)
         self.top_frame_layout.addWidget(self.process_btn_sobel)
 
-        self.process_btn_prewitt = QPushButton("Apply Prewitt")
+        self.process_btn_prewitt = QPushButton(
+            QIcon.fromTheme("image-filter"), " Apply Prewitt")
         self.process_btn_prewitt.clicked.connect(
             lambda: self.process_image("Prewitt"))
         self.process_btn_prewitt.setEnabled(False)
         self.top_frame_layout.addWidget(self.process_btn_prewitt)
 
-        self.process_btn_canny = QPushButton("Apply Canny")
+        self.process_btn_canny = QPushButton(
+            QIcon.fromTheme("image-filter"), " Apply Canny")
         self.process_btn_canny.clicked.connect(
             lambda: self.process_image("Canny"))
         self.process_btn_canny.setEnabled(False)
         self.top_frame_layout.addWidget(self.process_btn_canny)
 
-        self.process_btn_laplacian = QPushButton("Apply Laplacian")
+        self.process_btn_laplacian = QPushButton(
+            QIcon.fromTheme("image-filter"), " Apply Laplacian")
         self.process_btn_laplacian.clicked.connect(
             lambda: self.process_image("Laplacian"))
         self.process_btn_laplacian.setEnabled(False)
         self.top_frame_layout.addWidget(self.process_btn_laplacian)
 
-        self.process_btn_all = QPushButton("Apply All Methods")
+        self.process_btn_all = QPushButton(
+            QIcon.fromTheme("view-preview"), " Apply All Methods")
         self.process_btn_all.clicked.connect(self.process_all)
         self.process_btn_all.setEnabled(False)
         self.top_frame_layout.addWidget(self.process_btn_all)
@@ -169,7 +197,8 @@ class EdgeDetectionApp(QMainWindow):
         self.top_frame_layout.addWidget(self.show_pixel_count_checkbox)
 
         # Save Images button
-        self.save_btn = QPushButton("Save Results")
+        self.save_btn = QPushButton(
+            QIcon.fromTheme("document-save"), " Save Results")
         self.save_btn.clicked.connect(self.save_results)
         self.save_btn.setEnabled(False)
         self.top_frame_layout.addWidget(self.save_btn)

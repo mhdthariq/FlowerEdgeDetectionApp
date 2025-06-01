@@ -81,11 +81,11 @@ A Python-based GUI application with a modern interface that allows users to load
 
 The repository includes build scripts.
 
-- **Linux**: `build_scripts/build_linux_packages.py` (Updated for PyQt6 and PyInstaller)
+- **Linux**: `build_scripts/build_linux_packages.py` (Updated for PyQt6 and PyInstaller, version 0.1.0)
 - **Windows**: `build_scripts/build_windows_exe.py` (Needs update for PyQt6)
 - **macOS**: `build_scripts/build_macos_app.py` (Needs update for PyQt6)
 
-See [docs/DISTRIBUTION.md](docs/DISTRIBUTION.md) for build concepts (updated for PyQt6).
+See [docs/DISTRIBUTION.md](docs/DISTRIBUTION.md) for build concepts (updated for PyQt6, version 0.1.0).
 
 ## Usage
 

@@ -29,6 +29,12 @@ ICON_CANDIDATES = [
 ICON_PATH = next((p for p in ICON_CANDIDATES if p.exists()),
                  ASSETS_DIR / "icons/app_icon.png")  # Default if none found
 
+APP_NAME = "FlowerEdgeDetection"
+# Name of the executable created by PyInstaller
+APP_EXECUTABLE_NAME = "FlowerEdgeDetection"
+APP_VERSION = "0.1.0"
+APP_DESCRIPTION = "An application for detecting edges in flower images using various algorithms."
+
 
 def check_dependencies():
     """Check if required packages are installed"""

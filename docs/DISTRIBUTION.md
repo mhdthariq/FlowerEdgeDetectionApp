@@ -1,5 +1,3 @@
-<!-- filepath: /home/renhoshizora/Learning/ImageProcessing/docs/DISTRIBUTION.md -->
-
 # Flower Edge Detection App - Distribution Guide
 
 This guide explains how to build and distribute the application for Windows, Linux, and macOS platforms. The application now uses PyQt6 for its interface.
@@ -86,22 +84,22 @@ To create a Windows installer, install NSIS (Nullsoft Scriptable Install System)
    ```
 
 4. Output:
-   - DEB package: `dist/flower-edge-detection_1.0.0_amd64.deb`
-   - RPM package: `dist/flower-edge-detection-1.0.0-1.x86_64.rpm` (Note: versioning for RPM might differ slightly)
+   - DEB package: `dist/flower-edge-detection_0.1.0_amd64.deb`
+   - RPM package: `dist/flower-edge-detection-0.1.0-1.x86_64.rpm` (Note: versioning for RPM might differ slightly)
 
 ### Linux Distribution
 
 For Debian-based distributions (Ubuntu, Debian, etc.):
 
 ```bash
-sudo dpkg -i dist/flower-edge-detection_1.0.0_amd64.deb
+sudo dpkg -i dist/flower-edge-detection_0.1.0_amd64.deb
 sudo apt-get install -f  # To resolve any dependencies (e.g., PyQt6 system libraries if not bundled fully)
 ```
 
 For RPM-based distributions (Fedora, RHEL, CentOS):
 
 ```bash
-sudo rpm -i dist/flower-edge-detection-1.0.0-1.x86_64.rpm
+sudo rpm -i dist/flower-edge-detection-0.1.0-1.x86_64.rpm
 # Dependencies might need to be handled by the system package manager or ensured they are bundled.
 ```
 
