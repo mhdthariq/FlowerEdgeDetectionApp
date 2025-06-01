@@ -69,9 +69,9 @@ The application follows a modular architecture:
    python main.py
    ```
 
-### Method 2: Using Build Scripts
+### Method 2: Using Build Scripts (Needs Update for PyQt6)
 
-The repository includes build scripts.
+The repository includes build scripts. **Note: These scripts were originally designed for a Tkinter application and will need to be updated to correctly package a PyQt6 application (e.g., using PyInstaller with PyQt6 specifics, or tools like `fbs`).**
 
 - **Windows**: `build_scripts/build_windows_exe.py`
 - **Linux**: `build_scripts/build_linux_packages.py`
@@ -110,9 +110,9 @@ After loading an image, you'll see a display with:
 
 Each processed image display can show the number of edge pixels detected and the edge density percentage.
 
-## Building Distributable Packages
+## Building Distributable Packages (Needs Update for PyQt6)
 
-The project includes scripts to create installable packages.
+The project includes scripts to create installable packages. **These scripts need to be adapted for PyQt6 applications.**
 
 ```bash
 # Main build script (needs update)
@@ -130,4 +130,4 @@ The goal of these scripts (once updated) would be to create:
 - **Linux**: `.deb` and `.rpm` packages (or AppImage).
 - **macOS**: A `.app` bundle and `.dmg` installer.
 
-Refer to [docs/DISTRIBUTION.md](docs/DISTRIBUTION.md).
+Refer to [docs/DISTRIBUTION.md](docs/DISTRIBUTION.md) (which also needs updating for PyQt6 packaging).

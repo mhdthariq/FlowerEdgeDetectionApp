@@ -1,3 +1,6 @@
+\
+
+````markdown
 <!-- filepath: /home/renhoshizora/Learning/ImageProcessing/docs/DISTRIBUTION.md -->
 
 # Flower Edge Detection App - Distribution Guide
@@ -180,3 +183,4 @@ If you encounter issues with the build process:
 2. Check system requirements and necessary development tools for your platform.
 3. Examine the detailed build logs from PyInstaller and `fpm`.
 4. Consult PyInstaller and PyQt6 documentation for platform-specific bundling advice.
+````

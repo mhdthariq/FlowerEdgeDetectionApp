@@ -456,15 +456,75 @@ class EdgeDetectionApp(QMainWindow):
         help_menu.addAction(about_action)
 
     def show_about(self):
-        QMessageBox.about(
-            self,
-            "About Edge Detection App",
-            """<b>Flower Edge Detection Application</b><br><br>
-            A modern application for applying and comparing
-            different edge detection algorithms on images.<br><br>
-            Built with OpenCV and PyQt6.<br><br>
-            © 2025 Muhammad Thariq Arya Putra Sembiring"""
+        # Use an explicit QMessageBox for better compatibility and control
+        about_box = QMessageBox(self)
+        about_box.setWindowTitle("About Edge Detection App")
+        about_box.setIcon(QMessageBox.Icon.Information)
+        about_box.setText(
+            """
+<b>Flower Edge Detection Application</b><br><br>
+A modern application for applying and comparing different edge detection algorithms on images.<br><br>
+Built with OpenCV and PyQt6.<br><br>
+&copy; 2025 Muhammad Thariq
+"""
         )
+        about_box.setStandardButtons(QMessageBox.StandardButton.Ok)
+
+        # Get the application instance to check color scheme
+        app_instance = QApplication.instance()
+        is_dark_mode = False
+        if app_instance:
+            # Qt.ColorScheme.Dark is an enum value from Qt.ColorScheme
+            is_dark_mode = app_instance.styleHints().colorScheme() == Qt.ColorScheme.Dark
+
+        if is_dark_mode:
+            about_box.setStyleSheet("""
+                QMessageBox {
+                    background-color: #2E2E2E; /* Dark background for the dialog window */
+                }
+                QMessageBox QLabel { /* The text label inside the message box */
+                    color: #FFFFFF; /* Light text */
+                    background-color: transparent; /* Ensure label background is transparent */
+                }
+                QMessageBox QPushButton { /* Buttons like OK, Cancel */
+                    color: #FFFFFF; /* Light text on buttons */
+                    background-color: #555555; /* Dark background for buttons */
+                    border: 1px solid #777777;
+                    padding: 5px;
+                    min-width: 60px; /* Consistent button size */
+                }
+                QMessageBox QPushButton:hover {
+                    background-color: #666666;
+                }
+                QMessageBox QPushButton:pressed {
+                    background-color: #444444;
+                }
+            """)
+        else:  # Light mode
+            about_box.setStyleSheet("""
+                QMessageBox {
+                    background-color: #F0F0F0; /* Light background for the dialog window */
+                }
+                QMessageBox QLabel { /* The text label inside the message box */
+                    color: #000000; /* Dark text */
+                    background-color: transparent; /* Ensure label background is transparent */
+                }
+                QMessageBox QPushButton { /* Buttons like OK, Cancel */
+                    color: #000000; /* Dark text on buttons */
+                    background-color: #DDDDDD; /* Light background for buttons */
+                    border: 1px solid #AAAAAA;
+                    padding: 5px;
+                    min-width: 60px; /* Consistent button size */
+                }
+                QMessageBox QPushButton:hover {
+                    background-color: #CCCCCC;
+                }
+                QMessageBox QPushButton:pressed {
+                    background-color: #BBBBBB;
+                }
+            """)
+
+        about_box.exec()
 
 # The ThemeSelector and SplashScreen from Tkinter will need to be
 # re-implemented or adapted for PyQt if their functionality is still desired.
