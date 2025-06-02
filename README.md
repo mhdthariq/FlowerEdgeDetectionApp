@@ -31,8 +31,7 @@ A Python-based GUI application with a modern interface that allows users to load
 │       ├── edge_detection.py  # Edge detection algorithms
 │       └── image_processor.py  # Image processing utilities
 ├── assets/                 # Image assets and resources
-├── docs/                   # Documentation
-└── tests/                  # Test files
+└── docs/                   # Documentation
 ```
 
 ## Requirements
