@@ -196,8 +196,8 @@ Section "Install"
   SetOutPath "$INSTDIR" ; Reset OutPath
   
   ; Create Start Menu shortcut
-  CreateDirectory "$SMPROGRAMS\\\\{APP_NAME}"
-  CreateShortCut "$SMPROGRAMS\\\\{APP_NAME}\\\\{APP_NAME}.lnk" "$INSTDIR\\\\{exe_name_with_version}" "" "$INSTDIR\\\\{exe_name_with_version}" 0 Icon "$INSTDIR\\\\{exe_name_with_version}" 0
+  CreateDirectory "$SMPROGRAMS\\\\\\\\{APP_NAME}"
+  CreateShortCut "$SMPROGRAMS\\\\\\\\{APP_NAME}\\\\\\\\{APP_NAME}.lnk" "$INSTDIR\\\\\\\\{exe_name_with_version}" "" "$INSTDIR\\\\\\\\{exe_name_with_version}" 0 SW_SHOWNORMAL ; Changed "Icon" to "SW_SHOWNORMAL" and removed extra parameters
   
   ; Create uninstaller
   WriteUninstaller "$INSTDIR\\Uninstall.exe"
